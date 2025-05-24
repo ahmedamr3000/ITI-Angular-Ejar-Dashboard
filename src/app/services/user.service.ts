@@ -5,7 +5,7 @@ import { User } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private baseUrl = 'http://localhost:3000/api/user'; 
+  private baseUrl = 'https://iti-ejar-node-production.up.railway.app/api/user';
 
   constructor(private http: HttpClient) {}
 
@@ -14,7 +14,10 @@ export class UserService {
   }
 
   getUser(id: string): Observable<{ user: User }> {
-    return this.http.get<{ user: User }>(`${this.baseUrl}/${id}`, this.getAuthHeader());
+    return this.http.get<{ user: User }>(
+      `${this.baseUrl}/${id}`,
+      this.getAuthHeader()
+    );
   }
 
   updateUser(id: string, data: Partial<User>): Observable<any> {
@@ -29,19 +32,18 @@ export class UserService {
     return this.http.patch<{ isVerified: boolean }>(
       `${this.baseUrl}/toggle-verification/${id}`,
       {},
-      this.getAuthHeader() 
+      this.getAuthHeader()
     );
   }
-  
-  private getAuthHeader() {
-    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
 
+  private getAuthHeader() {
+    const token =
+      localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
 
     return {
-    headers: new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    }),
-  };
-}
-  
+      headers: new HttpHeaders({
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+  }
 }

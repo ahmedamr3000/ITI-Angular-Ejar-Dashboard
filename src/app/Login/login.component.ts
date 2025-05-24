@@ -78,10 +78,13 @@ export class LoginComponent {
     const { identifier, password } = this.loginForm.value;
 
     this.http
-      .post<any>('http://localhost:3000/api/auth/login', {
-        identifier,
-        password,
-      })
+      .post<any>(
+        'https://iti-ejar-node-production.up.railway.app/api/auth/login',
+        {
+          identifier,
+          password,
+        }
+      )
       .subscribe({
         next: (res) => {
           const decodedToken = jwtDecode<any>(res.token);

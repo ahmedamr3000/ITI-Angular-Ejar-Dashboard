@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:3000/api/product/';
+  private baseUrl =
+    'https://iti-ejar-node-production.up.railway.app/api/product/';
 
   constructor(private http: HttpClient) {}
 
